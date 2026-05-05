@@ -32,11 +32,18 @@
             return this.data.unlocked.includes(id);
         },
         
-        // Register achievement config
+        // Register with automatic trigger setup
         register: function(cfg) {
             this.configs[cfg.id] = cfg;
             this.applyVisuals(cfg.id);
             this.setupClick(cfg.id);
+            
+            // Auto-setup trigger if type specified
+            if (cfg.trigger && cfg.trigger.type && window.FBHTriggers && window.FBHTriggers[cfg.trigger.type]) {
+                if (!this.has(cfg.id)) {
+                    window.FBHTriggers[cfg.trigger.type](this, cfg);
+                }
+            }
         },
         
         // Unlock achievement
