@@ -10,28 +10,19 @@
             return;
         }
         
-        var sys = window.FBHAchievements;
-        
-        var cfg = {
+        window.FBHAchievements.register({
             id: 'first-steps',
             tier: 'Iron',
             color: '#676767',
             title: 'The First Steps',
-            desc: 'Visit the home section to begin your journey through the Furry Belly Hub. Every adventure starts with a single step.',
+            desc: 'Visit the home section to begin your journey.',
             emoji: '🏠',
-            sound: 'achievement'
-        };
-        
-        sys.register(cfg);
-        
-        if (sys.has(cfg.id)) return;
-        
-        sys.watchSection('home-section', function() {
-            sys.startTimer(cfg.id, function() {
-                sys.unlock(cfg.id);
-            }, 3000);
-        }, function() {
-            sys.clearTimer(cfg.id);
+            sound: 'achievement',
+            trigger: {
+                type: 'section',
+                sectionId: 'home-section',
+                duration: 3000
+            }
         });
     }
     
