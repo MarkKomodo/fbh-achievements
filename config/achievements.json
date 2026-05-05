@@ -1,0 +1,32 @@
+{
+    "achievements": [
+        {
+            "id": "first-steps",
+            "tier": "Iron",
+            "color": "#676767",
+            "title": "The First Steps",
+            "desc": "Visit the home section to begin your journey.",
+            "emoji": "🏠",
+            "sound": "achievement",
+            "trigger": {
+                "type": "section",
+                "sectionId": "home-section",
+                "duration": 3000
+            }
+        },
+        {
+            "id": "meet-pack",
+            "tier": "Bronze",
+            "color": "#CD7F32",
+            "title": "Meet The Pack",
+            "desc": "Visit all 6 mascot sections.",
+            "emoji": "🐾",
+            "sound": "achievement",
+            "trigger": {
+                "type": "mascots",
+                "sections": ["zyra-section", "tango-section", "gordon-section", "fizz-section", "nibbles-section", "tabs-section"],
+                "duration": 3000
+            }
+        }
+    ]
+}
