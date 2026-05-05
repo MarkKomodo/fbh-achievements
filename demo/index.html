@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FBH Achievements - Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Fake Carrd section styles */
+        body {
+            background: #0A0A0F;
+            color: #fff;
+            font-family: 'Chakra Petch', monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .nav button {
+            background: #15151F;
+            border: 1px solid #FF6B35;
+            color: #FF6B35;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Chakra Petch', monospace;
+        }
+        
+        .nav button:hover {
+            background: #FF6B35;
+            color: #0A0A0F;
+        }
+        
+        h2 {
+            color: #FF6B35;
+        }
+        
+        /* Achievement section */
+        #achievements-section {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button onclick="showSection('home-section')">Home</button>
+        <button onclick="showSection('tango-section')">Tango</button>
+        <button onclick="showSection('nibbles-section')">Nibbles</button>
+        <button onclick="showSection('gordon-section')">Gordon</button>
+        <button onclick="showSection('fizz-section')">Fizz</button>
+        <button onclick="showSection('zyra-section')">Zyra</button>
+        <button onclick="showSection('tabs-section')">Tabs</button>
+        <button onclick="showSection('achievements-section')">Achievements</button>
+    </div>
+
+    <!-- Fake Carrd Sections -->
+    <section id="home-section" class="section active">
+        <h2>Home</h2>
+        <p>Welcome to Furry Belly Hub!</p>
+    </section>
+
+    <section id="tango-section" class="section">
+        <h2>Tango - Main Mascot</h2>
+        <p>The face of the community.</p>
+    </section>
+
+    <section id="nibbles-section" class="section">
+        <h2>Nibbles - Animations & Fursuits</h2>
+        <p>GIFs and fursuit content.</p>
+    </section>
+
+    <section id="gordon-section" class="section">
+        <h2>Gordon - IRL Bellies</h2>
+        <p>Real life belly content.</p>
+    </section>
+
+    <section id="fizz-section" class="section">
+        <h2>Fizz - Burps & Belches</h2>
+        <p>Audio content.</p>
+    </section>
+
+    <section id="zyra-section" class="section">
+        <h2>Zyra - Explicit Content</h2>
+        <p>NSFW section.</p>
+    </section>
+
+    <section id="tabs-section" class="section">
+        <h2>Tabs - Virtual Reality</h2>
+        <p>VR content.</p>
+    </section>
+
+    <!-- Achievements Section (Always Visible) -->
+    <section id="achievements-section">
+        <h2>Explorer Achievements</h2>
+        
+        <!-- First Steps -->
+        <div style="display:inline-block; margin: 20px; vertical-align: top;">
+            <div id="ach-badge-first-steps" class="ach-badge"></div>
+            <h3 id="ach-title-first-steps" class="ach-title">The First Steps</h3>
+            <div id="ach-desc-first-steps" class="ach-desc">Visit the home section to begin your journey.</div>
+        </div>
+
+        <!-- Meet The Pack -->
+        <div style="display:inline-block; margin: 20px; vertical-align: top;">
+            <div id="ach-badge-meet-pack" class="ach-badge"></div>
+            <h3 id="ach-title-meet-pack" class="ach-title">Meet The Pack</h3>
+            <div id="ach-desc-meet-pack" class="ach-desc">Visit all 6 mascot sections.</div>
+        </div>
+    </section>
+
+    <!-- Debug Panel -->
+    <div style="position:fixed; top:20px; left:20px; background:rgba(0,0,0,0.8); padding:15px; border:1px solid #FF6B35; border-radius:8px; z-index:200;">
+        <h3 style="color:#FF6B35; margin:0 0 10px;">Debug</h3>
+        <button onclick="resetAchievements()" style="display:block; margin-bottom:5px; width:100%;">Reset All</button>
+        <button onclick="achStatus()" style="display:block; margin-bottom:5px; width:100%;">Show Status</button>
+        <button onclick="forceUnlock('first-steps')" style="display:block; margin-bottom:5px; width:100%;">Unlock First Steps</button>
+        <button onclick="forceUnlock('meet-pack')" style="display:block; width:100%;">Unlock Meet Pack</button>
+    </div>
+
+    <!-- Fake Sounds Object (since we don't have your Dropbox sounds) -->
+    <script>
+        window.sounds = {
+            achievement: { 
+                currentTime: 0, 
+                play: function() { console.log('[Sound] achievement'); return Promise.resolve(); },
+                catch: function() {}
+            },
+            indicator: {
+                currentTime: 0,
+                play: function() { console.log('[Sound] indicator'); return Promise.resolve(); },
+                catch: function() {}
+            }
+        };
+    </script>
+
+    <!-- Load Core System -->
+    <script src="../src/core.js"></script>
+
+    <!-- Load Achievements -->
+    <script src="../src/achievements/first-steps.js"></script>
+    <script src="../src/achievements/meet-pack.js"></script>
+
+    <!-- Section Switcher -->
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(function(s) {
+                s.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
